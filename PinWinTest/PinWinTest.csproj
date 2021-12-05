@@ -63,7 +63,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\PinWin\PinWin.csproj">
+    <ProjectReference Include="..\PinWin.csproj">
       <Project>{7ae6966c-0686-4ac4-afbb-9ffd7bf7b81c}</Project>
       <Name>PinWin</Name>
     </ProjectReference>
