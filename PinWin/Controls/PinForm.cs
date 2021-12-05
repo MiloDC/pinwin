@@ -13,6 +13,9 @@
         private WinEventHook _winEventHook;
         private bool _receivesParentMoveEvents;
 
+        private Bitmap _pinnedBitmap;
+        private Rectangle _pinnedRect;
+
         private readonly IntPtr _parentHandle;
         private readonly string _parentFormTitle;
         // ReSharper disable once UnusedMember.Global - used by Windows forms data binding
@@ -24,6 +27,8 @@
         public PinForm()
         {
             InitializeComponent();
+
+            _pinnedBitmap = Resources.Pinned;
         }
 
         public PinForm(IntPtr parentHandle) : this()
@@ -54,6 +59,7 @@
             PinForm pinForm = new PinForm(parentHandle);
             ApiTopMost.Set(parentHandle);
             PinForm.ShowSetOwnerHandle(pinForm, parentHandle);
+            pinForm.Size = new Size(Resources.Pinned.Width, Resources.Pinned.Height);
             return pinForm;
         }
 
@@ -117,6 +123,13 @@
             this.Close();
         }
 
+        protected override void OnResize(EventArgs e)
+        {
+            base.OnResize(e);
+
+            _pinnedRect = new Rectangle(0, 0, this.Width, this.Height);
+        }
+
         /// <summary>
         ///  OnPaint is used to make it work in XP, as well as later OS.
         /// </summary>
@@ -125,9 +138,7 @@
         {
             base.OnPaint(e);
 
-            var pinnedBitmap = Resources.Pinned;
-            pinnedBitmap.MakeTransparent();
-            e.Graphics.DrawImage(pinnedBitmap, new Point(0, 0));
+            e.Graphics.DrawImage(_pinnedBitmap, _pinnedRect);
         }
 
         private void PinForm_MouseClick(object sender, MouseEventArgs e)
@@ -152,10 +163,10 @@
         private static Point GetRelativeLocation(IntPtr handle)
         {
             var style = new WindowStyle(handle);
-            int rightMargin = style.GetControlBoxWidth() + 20;
+            int rightMargin = style.GetControlBoxWidth() + Resources.Pinned.Width;
             Rectangle move = ApiWindowPos.Get(handle);
 
-            return new Point(move.Left + move.Width - rightMargin, move.Top + 5);
+            return new Point(move.Left + move.Width - rightMargin - 8, move.Top - (Resources.Pinned.Height / 8));
         }
 
         private static void ShowSetOwnerHandle(Form form, IntPtr ownerHandle)
