@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PinWinTest", "PinWinTest\PinWinTest.csproj", "{A6B4E2A9-71A3-472E-BDFC-BE444B4756F6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PinWinTest", "_Tests\PinWinTest.csproj", "{A6B4E2A9-71A3-472E-BDFC-BE444B4756F6}"
 	ProjectSection(ProjectDependencies) = postProject
 		{7AE6966C-0686-4AC4-AFBB-9FFD7BF7B81C} = {7AE6966C-0686-4AC4-AFBB-9FFD7BF7B81C}
 	EndProjectSection
